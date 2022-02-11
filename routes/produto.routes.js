@@ -14,5 +14,5 @@ module.exports = app => {
   
   router.delete("/", produtos.deleteAll);
   
-  app.use('/api/produtos', router);
+  app.use('/produtos', router);
 };
