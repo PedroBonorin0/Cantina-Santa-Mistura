@@ -1,7 +1,7 @@
 <template>
   <div class="geral">
     <h1>Gerenciamento de Produtos</h1>
-    <BarraPesquisa :infoBuscada="'Produto'"/>
+    <!-- <BarraPesquisa :infoBuscada="'Produto'"/> -->
     <div id="tabelaProdutos">
       <TabelaProdutos />
     </div>
@@ -10,11 +10,11 @@
 </template>
 
 <script>
-import BarraPesquisa from '../components/BarraPesquisa.vue'
+// import BarraPesquisa from '../components/BarraPesquisa.vue'
 import TabelaProdutos from '../components/TabelaProdutos.vue'
 
 export default {
-	components: { BarraPesquisa, TabelaProdutos },
+	components: { /*BarraPesquisa,*/ TabelaProdutos },
   
 }
 </script>

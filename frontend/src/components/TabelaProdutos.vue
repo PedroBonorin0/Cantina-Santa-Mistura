@@ -18,7 +18,7 @@
     </div>
 
     <div class="CardProdutos">
-      <Card :title="'Gerenciar Produto'" :width="400">
+      <Card :title="'Gerenciar Produto'">
         <template #body>
           <div class="formBody">
             <form>
@@ -31,9 +31,9 @@
                 <input type="text" v-model="produtoSelecionado.preco" placeholder="Digite o preço do produto">  
               </div>
             </form>
-            <button @click="handleConfirmarProduto">Confirmar</button>
-            <button @click="handleExcluirProduto">Excluir</button>
-            <button @click="handleCriarProduto">Criar</button>
+            <button @click="handleConfirmar">Confirmar</button>
+            <button @click="handleExcluir">Excluir</button>
+            <button @click="handleCriar">Criar</button>
           </div>
         </template>
       </Card>
@@ -79,7 +79,7 @@ export default {
       this.produtoSelecionado.preco = produto.preco;
       this.produtoSelecionado.id = produto.id;
     },
-    async handleConfirmarProduto() {
+    async handleConfirmar() {
       const option = {
         nome: this.produtoSelecionado.nome,
         preco: this.produtoSelecionado.preco,
@@ -104,7 +104,7 @@ export default {
 
       console.log(res);
     },
-    async handleExcluirProduto() {
+    async handleExcluir() {
       let id = this.getIdProdutoSelecionado();
 
       const req = await fetch(`${this.requisicao}/${id}`,{
@@ -121,11 +121,7 @@ export default {
 
       console.log(res);
     },
-    async handleCriarProduto() {
-      if(this.produtoSelecionado.nome == '' || this.produtoSelecionado.preco == '') {
-        this.erroForm = true;
-        setTimeout(this.erroForm = false, 4000);
-      };
+    async handleCriar() {
       const produtoNovo = {
         nome: this.produtoSelecionado.nome,
         preco: Number(this.produtoSelecionado.preco).toFixed(2),

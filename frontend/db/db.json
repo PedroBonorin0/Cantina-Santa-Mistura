@@ -16,14 +16,39 @@
       "id": 3
     },
     {
-      "nome": "Nata",
-      "preco": "6.50",
-      "id": 4
-    },
-    {
       "nome": "X-Burger",
       "preco": "6.50",
       "id": 5
+    },
+    {
+      "nome": "Brownie",
+      "preco": "6.50",
+      "id": 6
+    },
+    {
+      "nome": "Suco de Uva",
+      "preco": "2.50",
+      "id": 7
+    },
+    {
+      "nome": "Suco de Laranja",
+      "preco": "2.50",
+      "id": 8
+    },
+    {
+      "nome": "Calzone",
+      "preco": "6.50",
+      "id": 10
+    },
+    {
+      "nome": "Pão de Batata",
+      "preco": "6.50",
+      "id": 11
+    },
+    {
+      "nome": "Bombom",
+      "preco": "1.50",
+      "id": 12
     }
   ],
   "clientes": [
@@ -40,6 +65,34 @@
       "telefone": "",
       "turma": "21",
       "tipoFuncionario": ""
+    },
+    {
+      "id": 2,
+      "nome": "Daniel Miller",
+      "tipo": "Aluno",
+      "saldo": 0,
+      "historico": [],
+      "matricula": "2020123322",
+      "cpf": "",
+      "nomeResponsavel": "Renata Bonorino",
+      "telefoneResponsavel": "21987654321",
+      "telefone": "",
+      "turma": "21",
+      "tipoFuncionario": ""
+    },
+    {
+      "id": 3,
+      "nome": "Félix Miranda",
+      "tipo": "Funcionario",
+      "saldo": 0,
+      "historico": [],
+      "matricula": "",
+      "cpf": "12345678910",
+      "nomeResponsavel": "",
+      "telefoneResponsavel": "",
+      "telefone": "21123443219",
+      "tipoFuncionario": "professor",
+      "turma": "21"
     }
   ],
   "pedidos": [
@@ -69,6 +122,24 @@
         "ano": 2022
       },
       "precoTotal": 11.5
+    }
+  ],
+  "turmas": [
+    {
+      "nome": "Jardim 12",
+      "id": 2
+    },
+    {
+      "nome": "121",
+      "id": 3
+    },
+    {
+      "nome": "223",
+      "id": 5
+    },
+    {
+      "nome": "21",
+      "id": 6
     }
   ]
 }
