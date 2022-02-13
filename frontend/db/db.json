@@ -6,11 +6,6 @@
       "id": 1
     },
     {
-      "nome": "Batom",
-      "preco": "1.50",
-      "id": 2
-    },
-    {
       "nome": "Bombom",
       "preco": "1.50",
       "id": 3
@@ -36,17 +31,12 @@
       "id": 8
     },
     {
-      "nome": "Calzone",
-      "preco": "6.50",
-      "id": 10
-    },
-    {
       "nome": "Pão de Batata",
       "preco": "6.50",
       "id": 11
     },
     {
-      "nome": "Bombom",
+      "nome": "Batom",
       "preco": "1.50",
       "id": 12
     }
@@ -56,7 +46,7 @@
       "id": 1,
       "nome": "Pedro Bonorino",
       "tipo": "Aluno",
-      "saldo": 0,
+      "saldo": -14.5,
       "historico": [],
       "matricula": "2020123321",
       "cpf": "",
@@ -70,7 +60,7 @@
       "id": 2,
       "nome": "Daniel Miller",
       "tipo": "Aluno",
-      "saldo": 0,
+      "saldo": -5,
       "historico": [],
       "matricula": "2020123322",
       "cpf": "",
@@ -84,7 +74,7 @@
       "id": 3,
       "nome": "Félix Miranda",
       "tipo": "Funcionario",
-      "saldo": 0,
+      "saldo": -9.5,
       "historico": [],
       "matricula": "",
       "cpf": "12345678910",
@@ -97,23 +87,27 @@
   ],
   "pedidos": [
     {
-      "id": "1",
-      "cliente": {
-        "clienteID": "1",
-        "clienteNome": "Pedro Bonorino"
-      },
+      "cliente": 2,
       "produtos": [
         {
-          "produtoId": 1,
-          "quantidade": 1
+          "nome": "Pão de Batata",
+          "preco": "6.50",
+          "id": 11
         },
         {
-          "produtoId": 3,
-          "quantidade": 1
+          "nome": "Pizza",
+          "preco": "6.50",
+          "id": 1
         },
         {
-          "produtoId": 4,
-          "quantidade": 2
+          "nome": "Suco de Laranja",
+          "preco": "2.50",
+          "id": 8
+        },
+        {
+          "nome": "Batom",
+          "preco": "1.50",
+          "id": 12
         }
       ],
       "data": {
@@ -121,7 +115,363 @@
         "mes": 2,
         "ano": 2022
       },
-      "precoTotal": 11.5
+      "precoTotal": 17,
+      "id": 1
+    },
+    {
+      "cliente": 2,
+      "produtos": [
+        {
+          "nome": "Pizza",
+          "preco": "6.50",
+          "id": 1
+        },
+        {
+          "nome": "Pizza",
+          "preco": "6.50",
+          "id": 1
+        },
+        {
+          "nome": "Suco de Uva",
+          "preco": "2.50",
+          "id": 7
+        }
+      ],
+      "data": {
+        "dia": 14,
+        "mes": 2,
+        "ano": 2022
+      },
+      "precoTotal": 15.5,
+      "id": 2
+    },
+    {
+      "cliente": 3,
+      "produtos": [
+        {
+          "nome": "Pão de Batata",
+          "preco": "6.50",
+          "id": 11
+        },
+        {
+          "nome": "Pão de Batata",
+          "preco": "6.50",
+          "id": 11
+        }
+      ],
+      "data": {
+        "dia": 13,
+        "mes": 2,
+        "ano": 2022
+      },
+      "precoTotal": 13,
+      "id": 3
+    },
+    {
+      "cliente": 3,
+      "produtos": [
+        {
+          "nome": "Batom",
+          "preco": "1.50",
+          "id": 12
+        },
+        {
+          "nome": "Batom",
+          "preco": "1.50",
+          "id": 12
+        }
+      ],
+      "data": {
+        "dia": 13,
+        "mes": 2,
+        "ano": 2022
+      },
+      "precoTotal": 3,
+      "id": 4
+    },
+    {
+      "cliente": 3,
+      "produtos": [
+        {
+          "nome": "Bombom",
+          "preco": "1.50",
+          "id": 3
+        },
+        {
+          "nome": "Bombom",
+          "preco": "1.50",
+          "id": 3
+        },
+        {
+          "nome": "Bombom",
+          "preco": "1.50",
+          "id": 3
+        },
+        {
+          "nome": "Bombom",
+          "preco": "1.50",
+          "id": 3
+        }
+      ],
+      "data": {
+        "dia": 13,
+        "mes": 2,
+        "ano": 2022
+      },
+      "precoTotal": 6,
+      "id": 5
+    },
+    {
+      "cliente": 2,
+      "produtos": [
+        {
+          "nome": "Batom",
+          "preco": "1.50",
+          "id": 12
+        },
+        {
+          "nome": "Batom",
+          "preco": "1.50",
+          "id": 12
+        }
+      ],
+      "data": {
+        "dia": 13,
+        "mes": 2,
+        "ano": 2022
+      },
+      "precoTotal": 3,
+      "id": 6
+    },
+    {
+      "cliente": 1,
+      "produtos": [
+        {
+          "nome": "Batom",
+          "preco": "1.50",
+          "id": 12
+        },
+        {
+          "nome": "Batom",
+          "preco": "1.50",
+          "id": 12
+        }
+      ],
+      "data": {
+        "dia": 13,
+        "mes": 2,
+        "ano": 2022
+      },
+      "precoTotal": 3,
+      "id": 7
+    },
+    {
+      "cliente": 1,
+      "produtos": [
+        {
+          "nome": "Bombom",
+          "preco": "1.50",
+          "id": 3
+        },
+        {
+          "nome": "Bombom",
+          "preco": "1.50",
+          "id": 3
+        }
+      ],
+      "data": {
+        "dia": 13,
+        "mes": 2,
+        "ano": 2022
+      },
+      "precoTotal": 3,
+      "id": 8
+    },
+    {
+      "cliente": 1,
+      "produtos": [
+        {
+          "nome": "Pizza",
+          "preco": "6.50",
+          "id": 1
+        },
+        {
+          "nome": "Pizza",
+          "preco": "6.50",
+          "id": 1
+        }
+      ],
+      "data": {
+        "dia": 18,
+        "mes": 2,
+        "ano": 2022
+      },
+      "precoTotal": 13,
+      "id": 9
+    },
+    {
+      "cliente": 1,
+      "produtos": [
+        {
+          "nome": "Pizza",
+          "preco": "6.50",
+          "id": 1
+        },
+        {
+          "nome": "Pizza",
+          "preco": "6.50",
+          "id": 1
+        }
+      ],
+      "data": {
+        "dia": 13,
+        "mes": 2,
+        "ano": 2022
+      },
+      "precoTotal": 13,
+      "id": 10
+    },
+    {
+      "cliente": 3,
+      "produtos": [
+        {
+          "nome": "Brownie",
+          "preco": "6.50",
+          "id": 6
+        },
+        {
+          "nome": "Suco de Uva",
+          "preco": "2.50",
+          "id": 7
+        },
+        {
+          "nome": "Suco de Uva",
+          "preco": "2.50",
+          "id": 7
+        }
+      ],
+      "data": {
+        "dia": 13,
+        "mes": 2,
+        "ano": 2022
+      },
+      "precoTotal": 11.5,
+      "id": 11
+    },
+    {
+      "cliente": 3,
+      "produtos": [
+        {
+          "nome": "Bombom",
+          "preco": "1.50",
+          "id": 3
+        },
+        {
+          "nome": "Bombom",
+          "preco": "1.50",
+          "id": 3
+        },
+        {
+          "nome": "Pão de Batata",
+          "preco": "6.50",
+          "id": 11
+        }
+      ],
+      "data": {
+        "dia": 13,
+        "mes": 2,
+        "ano": 2022
+      },
+      "precoTotal": 9.5,
+      "id": 12
+    },
+    {
+      "cliente": 1,
+      "produtos": [
+        {
+          "nome": "Bombom",
+          "preco": "1.50",
+          "id": 3
+        }
+      ],
+      "data": {
+        "dia": 13,
+        "mes": 2,
+        "ano": 2022
+      },
+      "precoTotal": 1.5,
+      "id": 13
+    },
+    {
+      "cliente": 1,
+      "produtos": [
+        {
+          "nome": "Brownie",
+          "preco": "6.50",
+          "id": 6
+        },
+        {
+          "nome": "Brownie",
+          "preco": "6.50",
+          "id": 6
+        }
+      ],
+      "data": {
+        "dia": 13,
+        "mes": 2,
+        "ano": 2022
+      },
+      "precoTotal": 13,
+      "id": 14
+    },
+    {
+      "cliente": 2,
+      "produtos": [
+        {
+          "nome": "Bombom",
+          "preco": "1.50",
+          "id": 3
+        },
+        {
+          "nome": "Brownie",
+          "preco": "6.50",
+          "id": 6
+        },
+        {
+          "nome": "Suco de Laranja",
+          "preco": "2.50",
+          "id": 8
+        }
+      ],
+      "data": {
+        "dia": 13,
+        "mes": 2,
+        "ano": 2022
+      },
+      "precoTotal": 10.5,
+      "id": 15
+    },
+    {
+      "cliente": 2,
+      "produtos": [
+        {
+          "nome": "Suco de Laranja",
+          "preco": "2.50",
+          "id": 8
+        },
+        {
+          "nome": "Suco de Laranja",
+          "preco": "2.50",
+          "id": 8
+        }
+      ],
+      "data": {
+        "dia": 13,
+        "mes": 2,
+        "ano": 2022
+      },
+      "precoTotal": 5,
+      "id": 16
     }
   ],
   "turmas": [
