@@ -1,0 +1,74 @@
+{
+  "produtos": [
+    {
+      "nome": "Pizza",
+      "preco": "6.50",
+      "id": 1
+    },
+    {
+      "nome": "Batom",
+      "preco": "1.50",
+      "id": 2
+    },
+    {
+      "nome": "Bombom",
+      "preco": "1.50",
+      "id": 3
+    },
+    {
+      "nome": "Nata",
+      "preco": "6.50",
+      "id": 4
+    },
+    {
+      "nome": "X-Burger",
+      "preco": "6.50",
+      "id": 5
+    }
+  ],
+  "clientes": [
+    {
+      "id": 1,
+      "nome": "Pedro Bonorino",
+      "tipo": "Aluno",
+      "saldo": 0,
+      "historico": [],
+      "matricula": "2020123321",
+      "cpf": "",
+      "nomeResponsavel": "Renata Bonorino",
+      "telefoneResponsavel": "21995246311",
+      "telefone": "",
+      "turma": "21",
+      "tipoFuncionario": ""
+    }
+  ],
+  "pedidos": [
+    {
+      "id": "1",
+      "cliente": {
+        "clienteID": "1",
+        "clienteNome": "Pedro Bonorino"
+      },
+      "produtos": [
+        {
+          "produtoId": 1,
+          "quantidade": 1
+        },
+        {
+          "produtoId": 3,
+          "quantidade": 1
+        },
+        {
+          "produtoId": 4,
+          "quantidade": 2
+        }
+      ],
+      "data": {
+        "dia": 13,
+        "mes": 2,
+        "ano": 2022
+      },
+      "precoTotal": 11.5
+    }
+  ]
+}

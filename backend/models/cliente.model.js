@@ -4,7 +4,6 @@ const Cliente = function(cliente) {
     this.id = cliente.id;
     this.nome = cliente.nome;
     this.saldo = cliente.saldo;
-    this.historico = cliente.historico;
 };
 
 Cliente.create = (newCliente, result) => {
@@ -51,28 +50,11 @@ Cliente.getAll = (nome, result) => {
     });
   };
 
-  Cliente.updateById = (id, cliente, nome, result) => {
-    sql.query(
-      "UPDATE clientes SET nome = ?, WHERE id = ?",
-      [cliente.nome, id],
-      (err, res) => {
-        if (err) {
-          console.log("error: ", err);
-          result(null, err);
-          return;
-        }
-        if (res.affectedRows == 0) {
-          result({ kind: "not_found" }, null);
-          return;
-        }
-        console.log("updated cliente: ", { id: id, ...produto });
-        result(null, { id: id, ...produto });
-      }
-    );
-  };
-
-  Produto.remove = (id, result) => {
-    sql.query("DELETE FROM clientes WHERE id = ?", id, (err, res) => {
+Cliente.updateById = (id, cliente, nome, result) => {
+  sql.query(
+    "UPDATE clientes SET nome = ?, WHERE id = ?",
+    [cliente.nome, id],
+    (err, res) => {
       if (err) {
         console.log("error: ", err);
         result(null, err);
@@ -82,21 +64,38 @@ Cliente.getAll = (nome, result) => {
         result({ kind: "not_found" }, null);
         return;
       }
-      console.log("deleted cliente with id: ", id);
-      result(null, res);
-    });
-  };
+      console.log("updated cliente: ", { id: id, ...cliente });
+      result(null, { id: id, ...cliente });
+    }
+  );
+};
 
-  Produto.removeAll = result => {
-    sql.query("DELETE FROM clientes", (err, res) => {
-      if (err) {
-        console.log("error: ", err);
-        result(null, err);
-        return;
-      }
-      console.log(`deleted ${res.affectedRows} clientes`);
-      result(null, res);
-    });
-  };
+Cliente.remove = (id, result) => {
+  sql.query("DELETE FROM clientes WHERE id = ?", id, (err, res) => {
+    if (err) {
+      console.log("error: ", err);
+      result(null, err);
+      return;
+    }
+    if (res.affectedRows == 0) {
+      result({ kind: "not_found" }, null);
+      return;
+    }
+    console.log("deleted cliente with id: ", id);
+    result(null, res);
+  });
+};
 
-  module.exports = Cliente;
+Cliente.removeAll = result => {
+  sql.query("DELETE FROM clientes", (err, res) => {
+    if (err) {
+      console.log("error: ", err);
+      result(null, err);
+      return;
+    }
+    console.log(`deleted ${res.affectedRows} clientes`);
+    result(null, res);
+  });
+};
+
+module.exports = Cliente;
