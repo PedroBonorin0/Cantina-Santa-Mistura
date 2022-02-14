@@ -1,5 +1,6 @@
 <template>
 <div class="formPedido" >
+  <Message :msg="msg" v-show="msg"/>
   <form @submit.prevent="onSubmit">
     <div class="infoPedido">
       <label>Cliente: </label>
@@ -66,6 +67,8 @@
 <script>
 import { orderBy } from 'lodash-es';
 
+import Message from './Message.vue';
+
 export default {
   data() {
     return {
@@ -99,6 +102,10 @@ export default {
 
   mounted() {
     this.getAllInfos();
+  },
+
+  components: {
+    Message
   },
 
   methods: {
@@ -170,6 +177,12 @@ export default {
       });
 
       const res = await req.json();
+
+      //Mensagem de confimação
+      this.msg = "Pedido realizado com sucesso.";
+
+      //Limpar Mensagem
+      setTimeout(() => this.msg = "", 3000);
 
       console.log(res);
 

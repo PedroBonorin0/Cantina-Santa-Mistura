@@ -1,5 +1,6 @@
 <template>
   <div>
+    <Message :msg="msg" v-show="msg"/>
     <div class="geralTabela">
       <table class="tabelaGeral">
         <tr class="header">
@@ -45,9 +46,10 @@
 <script>
 import Card from './Card.vue';
 import { orderBy } from 'lodash-es';
+import Message from './Message.vue';
 
 export default {
-	components: { Card },
+	components: { Card, Message },
   name: "TabelaProdutos",
   data() {
     return {
@@ -96,6 +98,12 @@ export default {
 
       const res = await req.json();
 
+       //Mensagem de confimação
+      this.msg = "Produto editado com sucesso.";
+
+      //Limpar Mensagem
+      setTimeout(() => this.msg = "", 3000);
+
       // Limpar os campos
       this.produtoSelecionado.nome = '';
       this.produtoSelecionado.preco = '';
@@ -112,6 +120,12 @@ export default {
       });
 
       const res = await req.json();
+
+      //Mensagem de confimação
+      this.msg = "Produto excluído com sucesso.";
+
+      //Limpar Mensagem
+      setTimeout(() => this.msg = "", 3000);
 
       // Limpar os campos
       this.produtoSelecionado.nome = '';
@@ -136,6 +150,12 @@ export default {
       });
 
       const res = await req.json();
+
+      //Mensagem de confimação
+      this.msg = "Produto criado com sucesso.";
+
+      //Limpar Mensagem
+      setTimeout(() => this.msg = "", 3000);
 
       console.log(res);
 

@@ -1,5 +1,6 @@
 <template>
   <div>
+    <Message :msg="msg" v-show="msg"/>
     <div class="geralTabela">
       <select @change="calculaId()" name="selectTurma" id="selectTurma" v-model="turmaSelecionadaNome">
         <option disabled value="" selected>Selecione a Turma</option>
@@ -46,9 +47,10 @@
 <script>
 import Card from './Card.vue';
 import { orderBy } from 'lodash-es';
+import Message from './Message.vue';
 
 export default {
-	components: { Card },
+	components: { Card, Message },
   name: "TabelaTurmas",
   data() {
     return {
@@ -100,6 +102,12 @@ export default {
 
       const res = await req.json();
 
+      //Mensagem de confimação
+      this.msg = "Turma editada com sucesso.";
+
+      //Limpar Mensagem
+      setTimeout(() => this.msg = "", 3000);
+
       // Limpar os campos
       this.turmaSelecionadaNome = '';
 
@@ -115,6 +123,12 @@ export default {
       });
 
       const res = await req.json();
+
+      //Mensagem de confimação
+      this.msg = "Turma excluída com sucesso.";
+
+      //Limpar Mensagem
+      setTimeout(() => this.msg = "", 3000);
 
       // Limpar os campos
       this.turmaSelecionadaNome = '';
@@ -137,6 +151,12 @@ export default {
       });
 
       const res = await req.json();
+
+      //Mensagem de confimação
+      this.msg = "Turma cadastrada com sucesso.";
+
+      //Limpar Mensagem
+      setTimeout(() => this.msg = "", 3000);
 
       console.log(res);
 

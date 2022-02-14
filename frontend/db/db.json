@@ -57,20 +57,6 @@
       "tipoFuncionario": ""
     },
     {
-      "id": 2,
-      "nome": "Daniel Miller",
-      "tipo": "Aluno",
-      "saldo": -5,
-      "historico": [],
-      "matricula": "2020123322",
-      "cpf": "",
-      "nomeResponsavel": "Renata Bonorino",
-      "telefoneResponsavel": "21987654321",
-      "telefone": "",
-      "turma": "21",
-      "tipoFuncionario": ""
-    },
-    {
       "id": 3,
       "nome": "Félix Miranda",
       "tipo": "Funcionario",
@@ -472,6 +458,118 @@
       },
       "precoTotal": 5,
       "id": 16
+    },
+    {
+      "cliente": 2,
+      "produtos": [
+        {
+          "nome": "Bombom",
+          "preco": "1.50",
+          "id": 3
+        }
+      ],
+      "data": {
+        "dia": 6,
+        "mes": 2,
+        "ano": 2026
+      },
+      "precoTotal": 1.5,
+      "id": 17
+    },
+    {
+      "cliente": 2,
+      "produtos": [
+        {
+          "nome": "Pizza",
+          "preco": "6.50",
+          "id": 1
+        }
+      ],
+      "data": {
+        "dia": 6,
+        "mes": 11,
+        "ano": 2039
+      },
+      "precoTotal": 6.5,
+      "id": 18
+    },
+    {
+      "cliente": 2,
+      "produtos": [
+        {
+          "nome": "X-Burger",
+          "preco": "6.50",
+          "id": 5
+        }
+      ],
+      "data": {
+        "dia": 12,
+        "mes": 5,
+        "ano": 2025
+      },
+      "precoTotal": 6.5,
+      "id": 19
+    },
+    {
+      "cliente": 2,
+      "produtos": [
+        {
+          "nome": "Batom",
+          "preco": "1.50",
+          "id": 12
+        },
+        {
+          "nome": "Batom",
+          "preco": "1.50",
+          "id": 12
+        }
+      ],
+      "data": {
+        "dia": 23,
+        "mes": 2,
+        "ano": 2045
+      },
+      "precoTotal": 3,
+      "id": 20
+    },
+    {
+      "cliente": 2,
+      "produtos": [
+        {
+          "nome": "Pizza",
+          "preco": "6.50",
+          "id": 1
+        },
+        {
+          "nome": "Pizza",
+          "preco": "6.50",
+          "id": 1
+        }
+      ],
+      "data": {
+        "dia": 4,
+        "mes": 12,
+        "ano": 2045
+      },
+      "precoTotal": 13,
+      "id": 21
+    },
+    {
+      "cliente": 2,
+      "produtos": [
+        {
+          "nome": "Batom",
+          "preco": "1.50",
+          "id": 12
+        }
+      ],
+      "data": {
+        "dia": 4,
+        "mes": 12,
+        "ano": 2023
+      },
+      "precoTotal": 1.5,
+      "id": 22
     }
   ],
   "turmas": [
@@ -484,7 +582,7 @@
       "id": 3
     },
     {
-      "nome": "223",
+      "nome": "222",
       "id": 5
     },
     {
