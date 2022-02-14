@@ -1,7 +1,6 @@
 <template>
   <div class="geral">
     <h1>Gerenciamento de Clientes</h1>
-    <BarraPesquisa :infoBuscada="'Cliente'"/>
     <div id="tabelaClientes">
       <TabelaClientes />
     </div>
@@ -10,11 +9,8 @@
 </template>
 
 <script>
+import TabelaClientes from '../components/TabelaClientes.vue';
 
-// import BarraPesquisa from '../components/BarraPesquisa.vue'
-import TabelaClientes from '../components/TabelaClientes.vue'
-
-// import BarraPesquisa from '../components/BarraPesquisa.vue'
 export default {
 	components: { TabelaClientes  },
   

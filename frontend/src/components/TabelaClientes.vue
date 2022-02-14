@@ -2,78 +2,104 @@
   <div>
     <div class="geralTabela">
       <table class="tabelaGeral">
-        <tr class="header">
-          <th>Nome</th>
-          <th>Preco</th>
+        <tr class="headerTipo">
+          <td>Alunos</td>
         </tr>
-        <tr v-for="cliente in listaClientesOrdenada()" :key="cliente.nome" class="body" @click="handleClickCliente(cliente)">
-          <td class="rowNome">
-            {{ cliente.nome }}
-          </td>
-          <td class="rowTipo">
-            {{ cliente.tipo }}
-          </td>
-          <td class="rowTurma">
-            {{ cliente.turma }}
-          </td>
-          <td class="rowSaldo">
-            {{ cliente.saldo }}
-          </td>
+        <tr class="headerCampos">
+          <td>Nome</td>
+          <td>Turma</td>
+          <td>Nome do Responsável</td>
+        </tr>
+        <tr class="body" v-for="aluno in listaAlunosOrdenada()" :key="aluno.id" @click="handleClickCliente(aluno)">
+          <td>{{ aluno.nome }}</td>
+          <td>{{ aluno.turma }}</td>
+          <td>{{ aluno.nomeResponsavel }} </td>
+        </tr>
+        <tr class="headerTipo">
+          <td>Funcionários</td>
+        </tr>
+        <tr class="headerCampos">
+          <th>Nome</th>
+          <th>Telefone</th>
+          <th>Tipo</th>
+        </tr>
+        <tr class="body" v-for="funcionario in listaFuncionariosOrdenada()" :key="funcionario.id" @click="handleClickCliente(funcionario)">
+          <td>{{ funcionario.nome }}</td>
+          <td>{{ funcionario.telefone }}</td>
+          <td>{{ funcionario.tipoFuncionario }}</td>
         </tr>
       </table>
     </div>
 
-    <div class="CardClientess">
+    <div class="CardClientes">
       <Card :title="'Gerenciar Cliente'">
         <template #body>
           <div class="formBody">
             <form>
-              <div class="form-control">
-                  <label>Tipo: </label>
-                  <option value="Aluno">One</option>
-                  <option value="Funcionario">Two</option>
-                  <input type="form-control" v-model="ClienteSelecionado.tipo" placeholder="Selecione o tipo do cliente">
+              <label>Tipo: </label>
+              <select class="select Tipo" v-model="tipoSelecionado">
+                <option disabled="disabled" value="" selected>Selecione o tipo</option>
+                <option value="Aluno">Aluno</option>
+                <option value="Funcionario">Funcionario</option>
+              </select>
+              <div v-if="tipoSelecionado === 'Aluno'">
+                <div class="input">
+                  <label>Nome: </label>
+                  <input type="text" v-model="this.clienteSelecionado.nome">
+                </div>
+                <div class="input">
+                  <label>Saldo: </label>
+                  <input type="text" v-model="this.clienteSelecionado.saldo">
+                </div>
+                <div class="input">
+                  <label>Matrícula: </label>
+                  <input type="text" v-model="this.clienteSelecionado.matricula">
+                </div>
+                <div class="input">
+                  <label>Nome do Responsável: </label>
+                  <input type="text" v-model="this.clienteSelecionado.nomeResponsavel">
+                </div>
+                <div class="input">
+                  <label>Telefone do Responsável: </label>
+                  <input type="text" v-model="this.clienteSelecionado.telefoneResponsavel">
+                </div>
+                <div class="input">
+                  <label>Turma: </label>
+                  <input type="text" v-model="this.clienteSelecionado.turma">
+                </div>
               </div>
-              <div class="input">
-                <label>Produto: </label>
-                <input type="text" v-model="clienteSelecionado.nome" placeholder="Digite o nome do cliente">
+              <div v-else>
+                <div class="input">
+                  <label>Nome: </label>
+                  <input type="text" v-model="this.clienteSelecionado.nome">
+                </div>
+                <div class="input">
+                  <label>Saldo: </label>
+                  <input type="text" v-model="this.clienteSelecionado.saldo">
+                </div>
+                <div class="input">
+                  <label>CPF: </label>
+                  <input type="text" v-model="this.clienteSelecionado.cpf">
+                </div>
+                <div class="input">
+                  <label>Telefone: </label>
+                  <input type="text" v-model="this.clienteSelecionado.telefone">
+                </div>
+                <div class="input">
+                  <label>Tipo Funcionário: </label>
+                  <select class="selectTipoFuncionario" v-model="this.clienteSelecionado.tipoFuncionario">
+                    <option disabled="disabled" value="" selected>Selecione um tipo</option>
+                    <option value="Professor">Professor</option>
+                    <option value="SG">Serviços Gerais</option>
+                    <option value="Recepcao">Recepção</option>
+                  </select>
+                </div>
+                <div class="input" v-if="this.clienteSelecionado.tipoFuncionario === 'Professor'">
+                  <label>Turma: </label>
+                  <input type="text" v-model="this.clienteSelecionado.turma">
+                </div>
               </div>
-              <div class="input">
-                <label>Saldo: </label>
-                <input type="text" v-model="clienteSelecionado.saldo" placeholder="Digite o saldo do cliente">
-              </div>
-              <div v-if="clienteSelecionado.tipo === Aluno">
-                <label>Matricula: </label>
-                <input type="text" v-model="clienteSelecionado.matricula" placeholder="Digite a matricula do aluno">  
-              </div>
-              <div v-if="clienteSelecionado.tipo === Aluno">
-                <label>Responsável: </label>
-                <input type="text" v-model="clienteSelecionado.nomeResponsavel" placeholder="Digite o nome do responsavel">  
-              </div>
-              <div v-if="clienteSelecionado.tipo === Aluno">
-                <label>Telefone Responsavel: </label>
-                <input type="text" v-model="clienteSelecionado.telefoneResponsavel" placeholder="Digite o telefone do responsável">  
-              </div>
-              <div v-if="clienteSelecionado.tipo === Aluno">
-                <label>Turma: </label>
-                <input type="text" v-model="clienteSelecionado.turma" placeholder="Digite a turma do aluno">  
-              </div>
-              <div v-if="clienteSelecionado.tipo === Funcionario">
-                <label>CPF: </label>
-                <input type="text" v-model="clienteSelecionado.cpf" placeholder="Digite o cpf do funcionario">  
-              </div>
-              <div v-if="clienteSelecionado.tipo === Funcionario">
-                <label>Telefone: </label>
-                <input type="text" v-model="clienteSelecionado.telefone" placeholder="Digite o telefone do funcionario">  
-              </div>
-              <div v-if="clienteSelecionado.tipo === Funcionario">
-                <label>Tipo: </label>
-                <input type="text" v-model="clienteSelecionado.tipoFuncionario" placeholder="Digite o tipo do funcionario">  
-              </div>
-              <div v-if="clienteSelecionado.tipo === Funcionario">
-                <label>Turma: </label>
-                <input type="text" v-model="clienteSelecionado.turma" placeholder="Digite a turma do funcionario">  
-              </div>
+              
             </form>
             <button @click="handleConfirmar">Confirmar</button>
             <button @click="handleExcluir">Excluir</button>
@@ -82,12 +108,12 @@
         </template>
       </Card>
     </div>
-
   </div>
 </template>
 
 <script>
 import Card from './Card.vue';
+
 import { orderBy } from 'lodash-es';
 
 export default {
@@ -95,8 +121,8 @@ export default {
   name: "TabelaClientes",
   data() {
     return {
-      requisicao: 'http://localhost:3000/clientes',
-      erroForm: false,
+      requisicaoClientes: 'http://localhost:3000/clientes',
+      tipoSelecionado: 'Aluno',
       clienteSelecionado: {
         nome: '',
         tipo: '',
@@ -112,6 +138,8 @@ export default {
         id: 0
       },
 
+      listaAlunos: [],
+      listaFuncionarios: [],
       listaClientes: [],
     }
   },
@@ -122,12 +150,19 @@ export default {
 
   methods: {
     async getAllClientes() {
-      const req = await fetch(this.requisicao);
+      const req = await fetch(this.requisicaoClientes);
       const data = await req.json();
 
       this.listaClientes = data;
+
+      this.listaClientes.forEach(cliente => {
+        if(cliente.tipo === 'Aluno') this.listaAlunos.push(cliente);
+
+        if(cliente.tipo === 'Funcionario') this.listaFuncionarios.push(cliente);
+      });
     },
     handleClickCliente(cliente) {
+      this.tipoSelecionado = cliente.tipo;
       this.clienteSelecionado.tipo = cliente.tipo;
       this.clienteSelecionado.nome = cliente.nome;
       this.clienteSelecionado.saldo = cliente.saldo;
@@ -154,13 +189,12 @@ export default {
         telefone: this.clienteSelecionado.telefone,
         turma: this.clienteSelecionado.turma,
         tipoFuncionario: this.clienteSelecionado.tipoFuncionario,
-        turma: this.clienteSelecionado.id,
       };
       const dataJson = JSON.stringify({ tipo: option.tipo, nome: option.nome, saldo: option.saldo, historico: option.historico, matricula: option.matricula, cpf: option.cpf, nomeResponsavel: option.nomeResponsavel, telefoneResponsavel: option.telefoneResponsavel, telefone: option.telefone, tipoFuncionario: option.tipoFuncionario, turma: option.turma});
 
       const id = this.getIdClienteSelecionado();
 
-      const req = await fetch(`${this.requisicao}/${id}`, {
+      const req = await fetch(`${this.requisicaoClientes}/${id}`, {
         method: "PATCH",
         headers: { "Content-Type" : "application/json" },
         body: dataJson
@@ -189,7 +223,7 @@ export default {
     async handleExcluir() {
       let id = this.getIdClienteSelecionado();
 
-      const req = await fetch(`${this.requisicao}/${id}`,{
+      const req = await fetch(`${this.requisicaoClientes}/${id}`,{
         method: 'DELETE',
       });
 
@@ -226,12 +260,11 @@ export default {
         telefone: this.clienteSelecionado.telefone,
         turma: this.clienteSelecionado.turma,
         tipoFuncionario: this.clienteSelecionado.tipoFuncionario,
-        turma: this.clienteSelecionado.id,
       };
 
       const clienteJson = JSON.stringify(clienteNovo);
 
-      const req = await fetch(this.requisicao, {
+      const req = await fetch(this.requisicaoClientes, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: clienteJson
@@ -257,8 +290,11 @@ export default {
 
       this.getAllClientes();
     },  
-    listaClientesOrdenada() {
-      return orderBy(this.listaClientes, 'nome');
+    listaAlunosOrdenada() {
+      return orderBy(this.listaAlunos, 'nome');
+    },
+    listaFuncionariosOrdenada() {
+      return orderBy(this.listaFuncionarios, 'nome');
     },
     getIdClienteSelecionado() {
       return this.clienteSelecionado.id;

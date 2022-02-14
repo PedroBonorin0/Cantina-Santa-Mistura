@@ -179,9 +179,6 @@ export default {
             this.listaProfsTurma.push(cliente);
         }
       });
-
-      console.log(this.listaAlunosTurma);
-      console.log(this.listaProfsTurma);
     }
   },
   
