@@ -62,6 +62,7 @@ export default {
       listaTurmas: [],
       listaAlunosTurma: [],
       listaProfsTurma: [],
+      msg: "",
     }
   },
 
@@ -106,7 +107,7 @@ export default {
       this.msg = "Turma editada com sucesso.";
 
       //Limpar Mensagem
-      setTimeout(() => this.msg = "", 3000);
+      setTimeout(() => this.msg = null, 3000);
 
       // Limpar os campos
       this.turmaSelecionadaNome = '';
@@ -128,7 +129,7 @@ export default {
       this.msg = "Turma excluída com sucesso.";
 
       //Limpar Mensagem
-      setTimeout(() => this.msg = "", 3000);
+      setTimeout(() => this.msg = null, 3000);
 
       // Limpar os campos
       this.turmaSelecionadaNome = '';
@@ -156,7 +157,7 @@ export default {
       this.msg = "Turma cadastrada com sucesso.";
 
       //Limpar Mensagem
-      setTimeout(() => this.msg = "", 3000);
+      setTimeout(() => this.msg = null, 3000);
 
       console.log(res);
 

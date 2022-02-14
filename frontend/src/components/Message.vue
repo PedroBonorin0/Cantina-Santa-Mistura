@@ -1,5 +1,5 @@
 <template>
-    <div class="message-container">
+    <div v-if="msg !== ''" class="message-container">
         <p>{{ msg }}</p>
     </div>
 </template>
@@ -9,8 +9,8 @@ export default {
     name: "Message",
     props: {
         msg: {type: String, required: true},
-        msgErro: {type: Boolean, required: true}
-    }
+        //msgErro: {type: Boolean, required: true}
+    },
 }
 </script>
 

@@ -102,7 +102,7 @@ export default {
       this.msg = "Produto editado com sucesso.";
 
       //Limpar Mensagem
-      setTimeout(() => this.msg = "", 3000);
+      setTimeout(() => this.msg = null, 3000);
 
       // Limpar os campos
       this.produtoSelecionado.nome = '';
@@ -125,7 +125,7 @@ export default {
       this.msg = "Produto excluído com sucesso.";
 
       //Limpar Mensagem
-      setTimeout(() => this.msg = "", 3000);
+      setTimeout(() => this.msg = null, 3000);
 
       // Limpar os campos
       this.produtoSelecionado.nome = '';
@@ -155,7 +155,7 @@ export default {
       this.msg = "Produto criado com sucesso.";
 
       //Limpar Mensagem
-      setTimeout(() => this.msg = "", 3000);
+      setTimeout(() => this.msg = null, 3000);
 
       console.log(res);
 

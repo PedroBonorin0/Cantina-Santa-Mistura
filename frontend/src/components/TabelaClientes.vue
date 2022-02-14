@@ -209,7 +209,7 @@ export default {
       this.msg = "Cliente editado com sucesso.";
 
       //Limpar Mensagem
-      setTimeout(() => this.msg = "", 3000);
+      setTimeout(() => this.msg = null, 3000);
 
       // Limpar os campos
       this.clienteSelecionado.tipo = '';
@@ -242,7 +242,7 @@ export default {
       this.msg = "Cliente excluído com sucesso.";
 
       //Limpar Mensagem
-      setTimeout(() => this.msg = "", 3000);
+      setTimeout(() => this.msg = null, 3000);
 
       // Limpar os campos
       this.clienteSelecionado.tipo = '';
@@ -291,7 +291,7 @@ export default {
       this.msg = "Cliente cadastrado com sucesso.";
 
       //Limpar Mensagem
-      setTimeout(() => this.msg = "", 3000);
+      setTimeout(() => this.msg = null, 3000);
 
       console.log(res);
 
