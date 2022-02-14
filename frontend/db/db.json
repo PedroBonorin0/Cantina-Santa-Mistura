@@ -16,11 +16,6 @@
       "id": 5
     },
     {
-      "nome": "Brownie",
-      "preco": "6.50",
-      "id": 6
-    },
-    {
       "nome": "Suco de Uva",
       "preco": "2.50",
       "id": 7
@@ -39,6 +34,11 @@
       "nome": "Batom",
       "preco": "1.50",
       "id": 12
+    },
+    {
+      "nome": "Bananinha",
+      "preco": "2.50",
+      "id": 13
     }
   ],
   "clientes": [
@@ -46,26 +46,12 @@
       "id": 1,
       "nome": "Pedro Bonorino",
       "tipo": "Aluno",
-      "saldo": -14.5,
+      "saldo": 0,
       "historico": [],
       "matricula": "2020123321",
       "cpf": "",
       "nomeResponsavel": "Renata Bonorino",
       "telefoneResponsavel": "21995246311",
-      "telefone": "",
-      "turma": "21",
-      "tipoFuncionario": ""
-    },
-    {
-      "id": 2,
-      "nome": "Daniel Miller",
-      "tipo": "Aluno",
-      "saldo": -5,
-      "historico": [],
-      "matricula": "2020123322",
-      "cpf": "",
-      "nomeResponsavel": "Renata Bonorino",
-      "telefoneResponsavel": "21987654321",
       "telefone": "",
       "turma": "21",
       "tipoFuncionario": ""
@@ -83,6 +69,48 @@
       "telefone": "21123443219",
       "tipoFuncionario": "Professor",
       "turma": "21"
+    },
+    {
+      "tipo": "",
+      "nome": "Daniel",
+      "saldo": "2",
+      "historico": [],
+      "matricula": "2022123334",
+      "cpf": "",
+      "nomeResponsavel": "mae do daniel",
+      "telefoneResponsavel": "21098767883",
+      "telefone": "",
+      "turma": "121",
+      "tipoFuncionario": "",
+      "id": 4
+    },
+    {
+      "tipo": "Aluno",
+      "nome": "Daniel Miller",
+      "saldo": "2.00",
+      "historico": [],
+      "matricula": "2022123332",
+      "cpf": "",
+      "nomeResponsavel": "Daniel's mom",
+      "telefoneResponsavel": "21999888877",
+      "telefone": "",
+      "turma": "21",
+      "tipoFuncionario": "",
+      "id": 5
+    },
+    {
+      "tipo": "Funcionario",
+      "nome": "Gilberto Braga",
+      "saldo": "0",
+      "historico": [],
+      "matricula": "",
+      "cpf": "12332111233",
+      "nomeResponsavel": "",
+      "telefoneResponsavel": "",
+      "telefone": "21998766543",
+      "turma": "",
+      "tipoFuncionario": "Recepcao",
+      "id": 6
     }
   ],
   "pedidos": [
@@ -472,6 +500,70 @@
       },
       "precoTotal": 5,
       "id": 16
+    },
+    {
+      "cliente": 1,
+      "produtos": [
+        {
+          "nome": "Batom",
+          "preco": "1.50",
+          "id": 12
+        },
+        {
+          "nome": "Batom",
+          "preco": "1.50",
+          "id": 12
+        },
+        {
+          "nome": "Pizza",
+          "preco": "6.50",
+          "id": 1
+        },
+        {
+          "nome": "Suco de Laranja",
+          "preco": "2.50",
+          "id": 8
+        }
+      ],
+      "data": {
+        "dia": 14,
+        "mes": 2,
+        "ano": 2022
+      },
+      "precoTotal": 12,
+      "id": 17
+    },
+    {
+      "cliente": 6,
+      "produtos": [
+        {
+          "nome": "Pizza",
+          "preco": "6.50",
+          "id": 1
+        },
+        {
+          "nome": "Pizza",
+          "preco": "6.50",
+          "id": 1
+        },
+        {
+          "nome": "Batom",
+          "preco": "1.50",
+          "id": 12
+        },
+        {
+          "nome": "Suco de Uva",
+          "preco": "2.50",
+          "id": 7
+        }
+      ],
+      "data": {
+        "dia": 15,
+        "mes": 2,
+        "ano": 2022
+      },
+      "precoTotal": 17,
+      "id": 18
     }
   ],
   "turmas": [

@@ -1,22 +1,23 @@
 <template>
   <div>
-    <div class="geralTabela">
+    <div id="container-geral">
       <table class="tabelaGeral">
         <tr class="headerTipo">
-          <td>Alunos</td>
+          <th>Alunos</th>
         </tr>
         <tr class="headerCampos">
-          <td>Nome</td>
-          <td>Turma</td>
-          <td>Nome do Responsável</td>
+          <th>Nome</th>
+          <th>Turma</th>
+          <th>Nome do Responsável</th>
         </tr>
         <tr class="body" v-for="aluno in listaAlunosOrdenada()" :key="aluno.id" @click="handleClickCliente(aluno)">
           <td>{{ aluno.nome }}</td>
           <td>{{ aluno.turma }}</td>
           <td>{{ aluno.nomeResponsavel }} </td>
         </tr>
+        <tr class="divisao"></tr>
         <tr class="headerTipo">
-          <td>Funcionários</td>
+          <th>Funcionários</th>
         </tr>
         <tr class="headerCampos">
           <th>Nome</th>
@@ -37,7 +38,7 @@
           <div class="formBody">
             <form>
               <label>Tipo: </label>
-              <select class="select Tipo" v-model="tipoSelecionado">
+              <select class="select Tipo" v-model="tipoSelecionado" @change="limpaCampos()">
                 <option disabled="disabled" value="" selected>Selecione o tipo</option>
                 <option value="Aluno">Aluno</option>
                 <option value="Funcionario">Funcionario</option>
@@ -65,7 +66,10 @@
                 </div>
                 <div class="input">
                   <label>Turma: </label>
-                  <input type="text" v-model="this.clienteSelecionado.turma">
+                  <select class="selectTurma" v-model="this.clienteSelecionado.turma">
+                    <option disabled="disabled" value="" selected>Selecione a turma</option>
+                    <option v-for="turma in listaTurmas" :key="turma.id">{{ turma.nome }}</option>
+                  </select>
                 </div>
               </div>
               <div v-else>
@@ -96,7 +100,10 @@
                 </div>
                 <div class="input" v-if="this.clienteSelecionado.tipoFuncionario === 'Professor'">
                   <label>Turma: </label>
-                  <input type="text" v-model="this.clienteSelecionado.turma">
+                  <select class="selectTurma" v-model="this.clienteSelecionado.turma">
+                    <option disabled="disabled" value="" selected>Selecione a turma</option>
+                    <option v-for="turma in listaTurmas" :key="turma.id">{{ turma.nome }}</option>
+                  </select>
                 </div>
               </div>
               
@@ -122,7 +129,10 @@ export default {
   data() {
     return {
       requisicaoClientes: 'http://localhost:3000/clientes',
+      requisicaoTurmas: 'http://localhost:3000/turmas',
       tipoSelecionado: 'Aluno',
+      temErro: false,
+
       clienteSelecionado: {
         nome: '',
         tipo: '',
@@ -141,6 +151,7 @@ export default {
       listaAlunos: [],
       listaFuncionarios: [],
       listaClientes: [],
+      listaTurmas: []
     }
   },
 
@@ -150,6 +161,8 @@ export default {
 
   methods: {
     async getAllClientes() {
+      this.listaAlunos = [];
+      this.listaFuncionarios = [];
       const req = await fetch(this.requisicaoClientes);
       const data = await req.json();
 
@@ -160,6 +173,14 @@ export default {
 
         if(cliente.tipo === 'Funcionario') this.listaFuncionarios.push(cliente);
       });
+      
+      this.getAllTurmas();
+    },
+    async getAllTurmas() {
+      const req = await fetch(this.requisicaoTurmas);
+      const data = await req.json();
+
+      this.listaTurmas = data;
     },
     handleClickCliente(cliente) {
       this.tipoSelecionado = cliente.tipo;
@@ -177,6 +198,7 @@ export default {
       this.clienteSelecionado.id = cliente.id;
     },
     async handleConfirmar() {
+
       const option = {
         tipo: this.clienteSelecionado.tipo,
         nome: this.clienteSelecionado.nome,
@@ -248,8 +270,17 @@ export default {
       console.log(res);
     },
     async handleCriar() {
+      let temClienteComDados = this.verificaClienteCadastrado();
+
+      if(temClienteComDados) {
+        this.temErro = true;
+        return;
+      } else {
+        this.temErro = false;
+      }
+
       const clienteNovo = {
-        tipo: this.clienteSelecionado.tipo,
+        tipo: this.tipoSelecionado,
         nome: this.clienteSelecionado.nome,
         saldo: this.clienteSelecionado.saldo,
         historico: this.clienteSelecionado.historico,
@@ -289,7 +320,21 @@ export default {
       this.clienteSelecionado.id = '';
 
       this.getAllClientes();
-    },  
+    },
+    verificaClienteCadastrado() {
+      let clienteCadastrado;
+
+      this.listaClientes.forEach(cliente => {
+        if(this.tipoSelecionado === 'Aluno') 
+          if(this.clienteSelecionado.matricula === cliente.matricula)
+            clienteCadastrado = true;
+        
+        if(this.tipoSelecionado === 'Funcionario')
+          if(this.clienteSelecionado.cpf === cliente.cpf)
+            clienteCadastrado = true;
+      });
+      return clienteCadastrado;
+    },
     listaAlunosOrdenada() {
       return orderBy(this.listaAlunos, 'nome');
     },
@@ -297,16 +342,42 @@ export default {
       return orderBy(this.listaFuncionarios, 'nome');
     },
     getIdClienteSelecionado() {
-      return this.clienteSelecionado.id;
+      let idCliente;
+      this.listaClientes.forEach(cliente => {
+        if(this.clienteSelecionado.tipo === 'Aluno')
+          if(this.clienteSelecionado.matricula === cliente.matricula)
+            idCliente = cliente.id;
+        
+        if(this.clienteSelecionado.tipo === 'Funcionario')
+          if(this.clienteSelecionado.cpf === cliente.cpf)
+            idCliente = cliente.id;
+        
+      });
+      return idCliente;
+    },
+    limpaCampos() {
+      if(this.tipoSelecionado === 'Aluno') {
+        this.clienteSelecionado.cpf = '';
+        this.clienteSelecionado.telefone = '';
+        this.clienteSelecionado.tipoFuncionario = '';
+      } else {
+        this.clienteSelecionado.matricula = '';
+        this.clienteSelecionado.nomeResponsavel = '';
+        this.clienteSelecionado.telefoneResponsavel = '';
+      }
     }
   }
 }
 </script>
 
 <style scoped>
+#container-geral {
+  margin: 20px auto;
+}
+
 .tabelaGeral {
-  margin: 25px 0;
-  width: 400px;
+  margin: 25px auto;
+  width: 450px;
   border: 1px solid #ddd;
   border-collapse: collapse;
 }
@@ -326,8 +397,12 @@ export default {
 
 .tabelaGeral tr:hover {background-color: #ddd;}
 
+.tabelaGeral .divisao {
+  height: 2px;
+}
+
 .tabelaGeral th {
-  padding: 12px 5px;
+  padding: 5px 5px;
   text-align: left;
   background-color: #CC5036;
   color: white;
@@ -343,6 +418,15 @@ export default {
   height: 20px;
   border-radius: 4px;
   width: 200px;
+}
+
+.formBody {
+  max-height: 400px;
+  text-align: left;
+}
+
+.formBody input {
+  max-width: 190px;
 }
 
 .formBody button {
