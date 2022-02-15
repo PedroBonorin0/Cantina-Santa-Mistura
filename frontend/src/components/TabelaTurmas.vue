@@ -1,5 +1,6 @@
 <template>
   <div>
+    <Message :msg="msg" :msgErro="temErro" v-show="msg"/>
     <div class="geralTabela">
       <select @change="calculaId()" name="selectTurma" id="selectTurma" v-model="turmaSelecionadaNome">
         <option disabled value="" selected>Selecione a Turma</option>
@@ -46,9 +47,10 @@
 <script>
 import Card from './Card.vue';
 import { orderBy } from 'lodash-es';
+import Message from './Message.vue';
 
 export default {
-	components: { Card },
+	components: { Card, Message },
   name: "TabelaTurmas",
   data() {
     return {
@@ -62,6 +64,7 @@ export default {
       listaProfsTurma: [],
 
       temErro: false,
+      msg: '',
     }
   },
 
@@ -89,8 +92,11 @@ export default {
     async handleConfirmar() {
       this.verificaCampos();
 
-      // EXIBIR MENSAGEM
-      if(this.temErro) return;
+      if(this.temErro) {
+        this.msg = 'ERRO! Confira se todos os campos foram preenchidos corretamente.';
+        setTimeout(() => this.msg = "", 3000);
+        return;
+      }
 
       const id = this.turmaSelecionadaId;
 
@@ -107,6 +113,13 @@ export default {
 
       const res = await req.json();
 
+      //Mensagem de confimação
+      this.msg = "Turma editada com sucesso.";
+      this.temErro = false;
+
+      //Limpar Mensagem
+      setTimeout(() => this.msg = null, 3000);
+
       // Limpar os campos
       this.turmaSelecionadaNome = '';
 
@@ -117,8 +130,11 @@ export default {
     async handleExcluir() {
       this.verificaCampos();
 
-      // EXIBIR MENSAGEM
-      if(this.temErro) return;
+      if(this.temErro) {
+        this.msg = 'ERRO! Confira se todos os campos foram preenchidos corretamente.';
+        setTimeout(() => this.msg = "", 3000);
+        return;
+      }
       
       let id = this.getIdTurmaSelecionada();
 
@@ -127,6 +143,13 @@ export default {
       });
 
       const res = await req.json();
+
+      //Mensagem de confimação
+      this.msg = "Turma excluída com sucesso.";
+      this.temErro = false;
+
+      //Limpar Mensagem
+      setTimeout(() => this.msg = null, 3000);
 
       // Limpar os campos
       this.turmaSelecionadaNome = '';
@@ -138,8 +161,11 @@ export default {
     async handleCriar() {
       this.verificaCampos();
 
-      // EXIBIR MENSAGEM
-      if(this.temErro) return;
+      if(this.temErro) {
+        this.msg = 'ERRO! Confira se todos os campos foram preenchidos corretamente.';
+        setTimeout(() => this.msg = '', 3000);
+        return;
+      }
       
       const novaTurma = {
         nome: this.turmaSelecionadaNome,
@@ -154,6 +180,13 @@ export default {
       });
 
       const res = await req.json();
+
+      //Mensagem de confimação
+      this.msg = "Turma cadastrada com sucesso.";
+      this.temErro = false;
+
+      //Limpar Mensagem
+      setTimeout(() => this.msg = null, 3000);
 
       console.log(res);
 
@@ -237,7 +270,6 @@ select {
   height: 30px;
   padding-left: 5px;
 }
-
 
 .tabelaGeral tr:nth-child(even){background-color: #f2f2f2;}
 

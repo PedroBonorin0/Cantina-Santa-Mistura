@@ -1,5 +1,6 @@
 <template>
   <div>
+    <Message :msg="msg" :msgErro="temErro" v-show="msg"/>
     <div class="geralTabela">
       <table class="tabelaGeral">
         <tr class="header">
@@ -44,10 +45,11 @@
 
 <script>
 import Card from './Card.vue';
+import Message from './Message.vue';
 import { orderBy } from 'lodash-es';
 
 export default {
-	components: { Card },
+	components: { Card, Message },
   name: "TabelaProdutos",
   data() {
     return {
@@ -60,6 +62,8 @@ export default {
       },
 
       listaProdutos: [],
+
+      msg: '',
       temErro: false,
     }
   },
@@ -81,10 +85,13 @@ export default {
       this.produtoSelecionado.id = produto.id;
     },
     async handleConfirmar() {
-      this.temErro = this.verificaCampos();
+      this.verificaCampos();
 
-      // EXIBIR MENSAGEM
-      if(this.temErro) return;
+      if(this.temErro) {
+        this.msg = 'ERRO! Confira se todos os campos foram preenchidos corretamente.';
+        setTimeout(() => this.msg = '', 3000);
+        return;
+      }
       
       const option = {
         nome: this.produtoSelecionado.nome,
@@ -102,6 +109,12 @@ export default {
 
       const res = await req.json();
 
+      //Mensagem de confimação
+      this.msg = "Produto editado com sucesso.";
+      this.temErro = false;
+      //Limpar Mensagem
+      setTimeout(() => this.msg = '', 3000);
+
       // Limpar os campos
       this.produtoSelecionado.nome = '';
       this.produtoSelecionado.preco = '';
@@ -111,10 +124,13 @@ export default {
       console.log(res);
     },
     async handleExcluir() {
-      this.temErro = this.verificaCampos();
+      this.verificaCampos();
 
-      // EXIBIR MENSAGEM
-      if(this.temErro) return;
+      if(this.temErro) {
+        this.msg = 'ERRO! Confira se todos os campos foram preenchidos corretamente.';
+        setTimeout(() => this.msg = '', 3000);
+        return;
+      }
       
       let id = this.getIdProdutoSelecionado();
 
@@ -123,6 +139,13 @@ export default {
       });
 
       const res = await req.json();
+
+      //Mensagem de confimação
+      this.msg = "Produto excluído com sucesso.";
+      this.temErro = false;
+
+      //Limpar Mensagem
+      setTimeout(() => this.msg = '', 3000);
 
       // Limpar os campos
       this.produtoSelecionado.nome = '';
@@ -133,10 +156,13 @@ export default {
       console.log(res);
     },
     async handleCriar() {
-      this.temErro = this.verificaCampos();
+      this.verificaCampos();
 
-      // EXIBIR MENSAGEM
-      if(this.temErro) return;
+      if(this.temErro) {
+        this.msg = 'ERRO! Confira se todos os campos foram preenchidos corretamente.';
+        setTimeout(() => this.msg = '', 3000);
+        return;
+      }
       
       const produtoNovo = {
         nome: this.produtoSelecionado.nome,
@@ -153,6 +179,13 @@ export default {
 
       const res = await req.json();
 
+      //Mensagem de confimação
+      this.msg = "Produto criado com sucesso.";
+      this.temErro = false;
+
+      //Limpar Mensagem
+      setTimeout(() => this.msg = '', 3000);
+
       console.log(res);
 
       // Limpar os campos
@@ -168,19 +201,13 @@ export default {
       return this.produtoSelecionado.id;
     },
     verificaCampos() {
-      if(this.produtoSelecionado.preco === '' ||
-         this.produtoSelecionado.preco === '')
-          this.temErro = true;
+      if(this.produtoSelecionado.nome === '' ||
+         this.produtoSelecionado.preco === '') {
+           this.temErro = true;
+         }
       else 
         this.temErro = false;
     },
-    verificaCampos() {
-      if(this.produtoSelecionado.nome === '' ||
-         this.produtoSelecionado.preco === '')
-          this.temErro = true;
-      else 
-        this.temErro = false;
-    }
   }
 }
 </script>

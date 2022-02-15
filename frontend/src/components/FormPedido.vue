@@ -1,5 +1,6 @@
 <template>
 <div class="formPedido" >
+  <Message :msg="msg" :msgErro="temErro" v-show="msg !== ''"/>
   <form @submit.prevent="onSubmit">
     <div class="infoPedido">
       <label>Cliente: </label>
@@ -66,7 +67,11 @@
 <script>
 import { orderBy } from 'lodash-es';
 
+import Message from './Message.vue';
+
 export default {
+  name: 'FormPedido',
+  components: { Message },
   data() {
     return {
       requisicaoProdutos: 'http://localhost:3000/produtos',
@@ -90,6 +95,8 @@ export default {
 
       listaPedido: [],
       temErro: false,
+
+      msg: '',
     }
   },
 
@@ -108,6 +115,8 @@ export default {
       const dataAtual = ano + '-' + mes + '-' + dia;
 
       this.dataSelecionada = dataAtual;
+
+      return dataAtual;
     },
     getAllInfos() {
       this.getAllProdutos();
@@ -160,6 +169,14 @@ export default {
       this.calculaPreco();
       this.calculaSaldo();
 
+      this.verificaCampos();
+
+      if(this.temErro) {
+        this.msg = 'ERRO! Confira se todos os campos foram preenchidos corretamente.';
+        setTimeout(() => this.msg = "", 3000);
+        return;
+      }
+
       const pedidoNovo = {
         cliente: this.clienteSelecionado.id,
         produtos: this.listaPedido,
@@ -177,6 +194,12 @@ export default {
       });
 
       const res = await req.json();
+
+      //Mensagem de confimação
+      this.temErro = false;
+      this.msg = "Pedido realizado com sucesso.";
+      //Limpar Mensagem
+      setTimeout(() => this.msg = "", 3000);
 
       console.log(res);
 
@@ -226,7 +249,17 @@ export default {
       const res = await req.json();
 
       console.log(res);
-    }
+    },
+    verificaCampos() {
+      if(this.nomeClienteSelecionado === '' ||
+         this.nomeProdutoSelecionado === '' ||
+         this.listaPedido.length === 0 || 
+         this.dataSelecionada < this.getDiaAtual()) {
+           this.temErro = true;
+         }
+      else 
+        this.temErro = false;
+    },
   },
 }
 </script>

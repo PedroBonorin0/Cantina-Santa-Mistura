@@ -1,5 +1,6 @@
 <template>
 <div class="geralPedido">
+  <Message :msg="msg" :msgErro="temErro" v-show="msg"/>
     <div class="dataPedido">
       <label>Data: </label>
       <input type="date" id="dataSelecionada" v-model="dataSelecionada" @change="filtraClientes()">
@@ -51,9 +52,10 @@
 <script>
 import { orderBy } from 'lodash-es';
 import Card from './Card.vue';
+import Message from './Message.vue';
 
 export default {
-	components: { Card },
+	components: { Card, Message },
   name: "TabelaPedidosDoDia",
   data() {
     return {
@@ -70,6 +72,7 @@ export default {
       clienteSelecionado: {},
       pedidoSelecionado: {},
 
+      msg: '',
       temErro: false,
     }
   },
@@ -132,10 +135,13 @@ export default {
       });
     },
     async deletaPedido() {
-      this.temErro = this.verificaCampos();
+      this.verificaCampos();
 
-      // EXIBIR MENSAGEM
-      if(this.temErro) return;
+      if(this.temErro) {
+        this.msg = 'ERRO! Confira se todos os campos foram preenchidos corretamente.';
+        setTimeout(() => this.msg = '', 3000);
+        return;
+      }
       
       let id = this.pedidoSelecionado.id;
 
@@ -146,6 +152,12 @@ export default {
       });
 
       const res = await req.json();
+
+      //Mensagem de confimação
+      this.msg = "Pedido excluído com sucesso.";
+      this.temErro = false;
+      //Limpar Mensagem
+      setTimeout(() => this.msg = '', 3000);
 
       // Limpar os campos
       this.clienteSelecionado = {};
@@ -163,8 +175,10 @@ export default {
       this.listaClientesFiltrada.forEach(clienteArray => {
         if(clienteArray.id === clienteId) clienteSelecionado = clienteArray;
       });
+
+      console.log(clienteSelecionado);
       
-      clienteSelecionado.saldo += pedido.valorTotal; 
+      clienteSelecionado.saldo += pedido.precoTotal;
 
       const option = {
         saldo: clienteSelecionado.saldo,
@@ -193,7 +207,21 @@ export default {
         this.temErro = true;
       else 
         this.temErro = false;
-    }
+    },
+    getIdClienteSelecionado() {
+      let idCliente;
+      this.listaClientes.forEach(cliente => {
+        if(this.clienteSelecionado.tipo === 'Aluno')
+          if(this.clienteSelecionado.matricula === cliente.matricula)
+            idCliente = cliente.id;
+        
+        if(this.clienteSelecionado.tipo === 'Funcionario')
+          if(this.clienteSelecionado.cpf === cliente.cpf)
+            idCliente = cliente.id;
+        
+      });
+      return idCliente;
+    },
   },
 }
 </script>

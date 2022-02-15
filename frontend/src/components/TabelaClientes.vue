@@ -1,6 +1,7 @@
 <template>
   <div>
     <div id="container-geral">
+    <Message :msg="msg" :msgErro="temErro" v-show="msg"/>
       <table class="tabelaGeral">
         <tr class="headerTipo">
           <th>Alunos</th>
@@ -123,15 +124,16 @@ import Card from './Card.vue';
 
 import { orderBy } from 'lodash-es';
 
+import Message from './Message.vue';
+
 export default {
-	components: { Card },
+	components: { Card, Message },
   name: "TabelaClientes",
   data() {
     return {
       requisicaoClientes: 'http://localhost:3000/clientes',
       requisicaoTurmas: 'http://localhost:3000/turmas',
       tipoSelecionado: 'Aluno',
-      temErro: false,
 
       clienteSelecionado: {
         nome: '',
@@ -151,7 +153,10 @@ export default {
       listaAlunos: [],
       listaFuncionarios: [],
       listaClientes: [],
-      listaTurmas: []
+      listaTurmas: [],
+
+      msg: '',
+      temErro: false,
     }
   },
 
@@ -200,8 +205,11 @@ export default {
     async handleConfirmar() {
       this.verificaCampos();
 
-      // EXIBIR MENSAGEM
-      if(this.temErro) return;
+      if(this.temErro) {
+        this.msg = 'ERRO! Confira se todos os campos foram preenchidos corretamente.';
+        setTimeout(() => this.msg = "", 3000);
+        return;
+      }
 
       const option = {
         tipo: this.clienteSelecionado.tipo,
@@ -228,6 +236,12 @@ export default {
 
       const res = await req.json();
 
+      //Mensagem de confimação
+      this.msg = "Cliente editado com sucesso.";
+      this.temErro = false;
+      //Limpar Mensagem
+      setTimeout(() => this.msg = '', 3000);
+
       // Limpar os campos
       this.clienteSelecionado.tipo = '';
       this.clienteSelecionado.nome = '';
@@ -249,8 +263,11 @@ export default {
     async handleExcluir() {
       this.verificaCampos();
 
-      // EXIBIR MENSAGEM
-      if(this.temErro) return;
+      if(this.temErro) {
+        this.msg = 'ERRO! Confira se todos os campos foram preenchidos corretamente.';
+        setTimeout(() => this.msg = "", 3000);
+        return;
+      }
       
       let id = this.getIdClienteSelecionado();
 
@@ -259,6 +276,12 @@ export default {
       });
 
       const res = await req.json();
+
+      //Mensagem de confimação
+      this.msg = "Cliente excluído com sucesso.";
+      this.temErro = false;
+      //Limpar Mensagem
+      setTimeout(() => this.msg = '', 3000);
 
       // Limpar os campos
       this.clienteSelecionado.tipo = '';
@@ -281,10 +304,11 @@ export default {
     async handleCriar() {
       this.verificaCampos();
 
-      console.log(this.tem);
-
-      // EXIBIR MENSAGEM
-      if(this.temErro) return;
+      if(this.temErro) {
+        this.msg = 'ERRO! Confira se todos os campos foram preenchidos corretamente.';
+        setTimeout(() => this.msg = "", 3000);
+        return;
+      }
       
       let temClienteComDados = this.verificaClienteCadastrado();
 
@@ -318,6 +342,12 @@ export default {
       });
 
       const res = await req.json();
+
+      //Mensagem de confimação
+      this.msg = "Cliente cadastrado com sucesso.";
+      this.temErro = false;
+      //Limpar Mensagem
+      setTimeout(() => this.msg = '', 3000);
 
       console.log(res);
 

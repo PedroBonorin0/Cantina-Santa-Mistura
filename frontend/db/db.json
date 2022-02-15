@@ -34,11 +34,6 @@
       "nome": "Batom",
       "preco": "1.50",
       "id": 12
-    },
-    {
-      "nome": "Bananinha",
-      "preco": "2.50",
-      "id": 13
     }
   ],
   "clientes": [
@@ -73,7 +68,7 @@
     {
       "tipo": "Aluno",
       "nome": "Daniel Miller",
-      "saldo": -10,
+      "saldo": 0,
       "historico": [],
       "matricula": "2022123332",
       "cpf": "",
@@ -87,7 +82,7 @@
     {
       "tipo": "Funcionario",
       "nome": "Gilberto Braga",
-      "saldo": -26,
+      "saldo": -39,
       "historico": [],
       "matricula": "",
       "cpf": "12332111233",
@@ -108,7 +103,7 @@
       "nomeResponsavel": "Suelen",
       "telefoneResponsavel": "21999900909",
       "telefone": "",
-      "turma": "223",
+      "turma": "21",
       "tipoFuncionario": "",
       "id": 7
     }
@@ -116,20 +111,16 @@
   "pedidos": [],
   "turmas": [
     {
-      "nome": "Jardim 12",
-      "id": 2
-    },
-    {
-      "nome": "121",
-      "id": 3
-    },
-    {
       "nome": "223",
       "id": 5
     },
     {
       "nome": "21",
       "id": 6
+    },
+    {
+      "nome": "122",
+      "id": 8
     }
   ]
 }
