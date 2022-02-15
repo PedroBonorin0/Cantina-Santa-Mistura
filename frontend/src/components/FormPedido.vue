@@ -102,7 +102,7 @@ export default {
 
   mounted() {
     this.getAllInfos();
-    this.getDiaAtual();
+    this.dataSelecionada = this.getDiaAtual();
   },
 
   methods: {
@@ -112,9 +112,7 @@ export default {
       const mes = String(data.getMonth() + 1).padStart(2, '0');
       const ano = data.getFullYear();
 
-      const dataAtual = ano + '-' + mes + '-' + dia;
-
-      this.dataSelecionada = dataAtual;
+      const dataAtual = ano + '-' + mes + '-' + dia
 
       return dataAtual;
     },
@@ -177,6 +175,9 @@ export default {
         return;
       }
 
+      console.log('--------------')
+      console.log(this.dataSelecionada)
+      console.log('--------------')
       const pedidoNovo = {
         cliente: this.clienteSelecionado.id,
         produtos: this.listaPedido,
@@ -185,12 +186,14 @@ export default {
         precoTotal: this.precoTotalCalculado,
       };
 
-      const produtoJson = JSON.stringify(pedidoNovo);
+      this.incrementaHistorico(pedidoNovo);
+      
+      const pedidoJson = JSON.stringify(pedidoNovo);
 
       const req = await fetch(this.requisicaoPedidos, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: produtoJson
+        body: pedidoJson
       });
 
       const res = await req.json();
@@ -217,7 +220,9 @@ export default {
       this.isPedidoPago = false;
 
       this.getAllInfos();
-      this.getDiaAtual();
+
+      setTimeout(() => this.getDiaAtual(), 3000);
+      
     },
     calculaPreco() {
       this.precoTotalCalculado = 0;
@@ -249,6 +254,27 @@ export default {
       const res = await req.json();
 
       console.log(res);
+    },
+    async incrementaHistorico(pedido) {
+      this.clienteSelecionado.historico.push(pedido);
+
+      const option = {
+        historico: this.clienteSelecionado.historico,
+      };
+      const dataJson = JSON.stringify({ historico: option.historico });
+
+      const id = this.clienteSelecionado.id;
+
+      const req = await fetch(`${this.requisicaoClientes}/${id}`, {
+        method: "PATCH",
+        headers: { "Content-Type" : "application/json" },
+        body: dataJson
+      });
+
+      const res = await req.json();
+      
+      console.log(res);
+
     },
     verificaCampos() {
       if(this.nomeClienteSelecionado === '' ||

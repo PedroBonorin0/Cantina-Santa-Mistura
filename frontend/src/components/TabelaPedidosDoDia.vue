@@ -142,7 +142,7 @@ export default {
         setTimeout(() => this.msg = '', 3000);
         return;
       }
-      
+
       let id = this.pedidoSelecionado.id;
 
       this.acertaSaldoCliente(this.pedidoSelecionado.cliente, this.pedidoSelecionado);
@@ -175,15 +175,15 @@ export default {
       this.listaClientesFiltrada.forEach(clienteArray => {
         if(clienteArray.id === clienteId) clienteSelecionado = clienteArray;
       });
-
-      console.log(clienteSelecionado);
       
       clienteSelecionado.saldo += pedido.precoTotal;
+      clienteSelecionado.historico.splice(clienteSelecionado.historico.indexOf(pedido), 1);
 
       const option = {
         saldo: clienteSelecionado.saldo,
+        historico: clienteSelecionado.historico
       };
-      const dataJson = JSON.stringify({ saldo: option.saldo });
+      const dataJson = JSON.stringify({ saldo: option.saldo, historico:option.historico });
 
       const id = this.getIdClienteSelecionado();
 
@@ -194,7 +194,6 @@ export default {
       });
 
       const res = await req.json();
-
       // Limpar os campos
       this.clienteSelecionado = {};
 

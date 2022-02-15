@@ -33,6 +33,13 @@
       </table>
     </div>
 
+    <div class="historicoCliente">
+      <Historico
+      :clienteNome="clienteSelecionado.nome"
+      :clienteId="clienteSelecionado.id" 
+      :historicoCLiente="clienteSelecionado.historico"/>
+    </div>
+
     <div class="CardClientes">
       <Card :title="'Gerenciar Cliente'">
         <template #body>
@@ -109,7 +116,7 @@
               </div>
               
             </form>
-            <button @click="handleConfirmar">Confirmar</button>
+            <button @click="handleConfirmar">Modificar</button>
             <button @click="handleExcluir">Excluir</button>
             <button @click="handleCriar">Criar</button>
           </div>
@@ -125,9 +132,10 @@ import Card from './Card.vue';
 import { orderBy } from 'lodash-es';
 
 import Message from './Message.vue';
+import Historico from './Historico.vue';
 
 export default {
-	components: { Card, Message },
+	components: { Card, Message, Historico },
   name: "TabelaClientes",
   data() {
     return {
@@ -201,6 +209,7 @@ export default {
       this.clienteSelecionado.turma = cliente.turma;
       this.clienteSelecionado.tipoFuncionario = cliente.tipoFuncionario;
       this.clienteSelecionado.id = cliente.id;
+      console.log(this.clienteSelecionado.historico)
     },
     async handleConfirmar() {
       this.verificaCampos();
@@ -246,7 +255,7 @@ export default {
       this.clienteSelecionado.tipo = '';
       this.clienteSelecionado.nome = '';
       this.clienteSelecionado.saldo = '';
-      this.clienteSelecionado.historico = '';
+      this.clienteSelecionado.historico = [];
       this.clienteSelecionado.matricula = '';
       this.clienteSelecionado.cpf = '';
       this.clienteSelecionado.nomeResponsavel = '';
@@ -287,7 +296,7 @@ export default {
       this.clienteSelecionado.tipo = '';
       this.clienteSelecionado.nome = '';
       this.clienteSelecionado.saldo = '';
-      this.clienteSelecionado.historico = '';
+      this.clienteSelecionado.historico = [];
       this.clienteSelecionado.matricula = '';
       this.clienteSelecionado.cpf = '';
       this.clienteSelecionado.nomeResponsavel = '';
@@ -355,7 +364,7 @@ export default {
       this.clienteSelecionado.tipo = '';
       this.clienteSelecionado.nome = '';
       this.clienteSelecionado.saldo = '';
-      this.clienteSelecionado.historico = '';
+      this.clienteSelecionado.historico = [];
       this.clienteSelecionado.matricula = '';
       this.clienteSelecionado.cpf = '';
       this.clienteSelecionado.nomeResponsavel = '';
@@ -475,9 +484,11 @@ export default {
   height: 2px;
 }
 
-.tabelaGeral th {
-  padding: 5px 5px;
+.tabelaGeral tr {
   text-align: left;
+}
+.tabelaGeral th {
+  padding: 5px;
   background-color: #CC5036;
   color: white;
 }

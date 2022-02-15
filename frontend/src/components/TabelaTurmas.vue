@@ -34,7 +34,7 @@
               <input type="text" v-model="turmaSelecionadaNome" placeholder="Digite o nome da turma">
             </div>
           </form>
-          <button @click="handleConfirmar">Confirmar</button>
+          <button @click="handleConfirmar">Modificar</button>
           <button @click="handleExcluir">Excluir</button>
           <button @click="handleCriar">Criar</button>
           </div>
