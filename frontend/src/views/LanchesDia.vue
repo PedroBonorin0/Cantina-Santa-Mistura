@@ -21,9 +21,7 @@ export default {
   .geral{
     width: 100vw;
     margin: 10px auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    text-align: center;
   }
 
   h1 {

@@ -60,6 +60,8 @@ export default {
       listaTurmas: [],
       listaAlunosTurma: [],
       listaProfsTurma: [],
+
+      temErro: false,
     }
   },
 
@@ -85,6 +87,11 @@ export default {
       return [];
     },
     async handleConfirmar() {
+      this.verificaCampos();
+
+      // EXIBIR MENSAGEM
+      if(this.temErro) return;
+
       const id = this.turmaSelecionadaId;
 
       const option = {
@@ -108,6 +115,11 @@ export default {
       console.log(res);
     },
     async handleExcluir() {
+      this.verificaCampos();
+
+      // EXIBIR MENSAGEM
+      if(this.temErro) return;
+      
       let id = this.getIdTurmaSelecionada();
 
       const req = await fetch(`${this.requisicaoTurmas}/${id}`,{
@@ -124,6 +136,11 @@ export default {
       console.log(res);
     },
     async handleCriar() {
+      this.verificaCampos();
+
+      // EXIBIR MENSAGEM
+      if(this.temErro) return;
+      
       const novaTurma = {
         nome: this.turmaSelecionadaNome,
       };
@@ -176,9 +193,16 @@ export default {
           if(cliente.tipo === 'Aluno')
             this.listaAlunosTurma.push(cliente);
           if(cliente.tipo === 'Funcionario')
-            this.listaProfsTurma.push(cliente);
+            if(cliente.tipoFuncionario === 'Professor')
+              this.listaProfsTurma.push(cliente);
         }
       });
+    },
+    verificaCampos() {
+      if(this.turmaSelecionadaNome === '')
+        this.temErro = true;
+      else
+        this.temErro = false;
     }
   },
   

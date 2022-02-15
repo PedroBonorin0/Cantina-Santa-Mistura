@@ -198,11 +198,15 @@ export default {
       this.clienteSelecionado.id = cliente.id;
     },
     async handleConfirmar() {
+      this.verificaCampos();
+
+      // EXIBIR MENSAGEM
+      if(this.temErro) return;
 
       const option = {
         tipo: this.clienteSelecionado.tipo,
         nome: this.clienteSelecionado.nome,
-        saldo: this.clienteSelecionado.saldo,
+        saldo: Number(this.clienteSelecionado.saldo),
         historico: this.clienteSelecionado.historico,
         matricula: this.clienteSelecionado.matricula,
         cpf: this.clienteSelecionado.cpf,
@@ -243,6 +247,11 @@ export default {
       console.log(res);
     },
     async handleExcluir() {
+      this.verificaCampos();
+
+      // EXIBIR MENSAGEM
+      if(this.temErro) return;
+      
       let id = this.getIdClienteSelecionado();
 
       const req = await fetch(`${this.requisicaoClientes}/${id}`,{
@@ -270,6 +279,13 @@ export default {
       console.log(res);
     },
     async handleCriar() {
+      this.verificaCampos();
+
+      console.log(this.tem);
+
+      // EXIBIR MENSAGEM
+      if(this.temErro) return;
+      
       let temClienteComDados = this.verificaClienteCadastrado();
 
       if(temClienteComDados) {
@@ -282,7 +298,7 @@ export default {
       const clienteNovo = {
         tipo: this.tipoSelecionado,
         nome: this.clienteSelecionado.nome,
-        saldo: this.clienteSelecionado.saldo,
+        saldo: Number(this.clienteSelecionado.saldo),
         historico: this.clienteSelecionado.historico,
         matricula: this.clienteSelecionado.matricula,
         cpf: this.clienteSelecionado.cpf,
@@ -364,6 +380,34 @@ export default {
         this.clienteSelecionado.matricula = '';
         this.clienteSelecionado.nomeResponsavel = '';
         this.clienteSelecionado.telefoneResponsavel = '';
+      }
+    },
+    verificaCampos() {
+      if(this.clienteSelecionado.nome === '' || this.clienteSelecionado.saldo === '') {
+        this.temErro = true;
+        return;
+      }
+
+      if(this.tipoSelecionado === 'Aluno') {
+        if(this.clienteSelecionado.matricula === '' ||
+           this.clienteSelecionado.nomeResponsavel === ''  ||
+           this.clienteSelecionado.telefoneResponsavel === ''  ||
+           this.clienteSelecionado.turma === '' ) {
+             this.temErro = true;
+           }
+        else 
+          this.temErro = false;
+      } else {
+        if(this.clienteSelecionado.cpf === '' ||
+           this.clienteSelecionado.telefone === ''  ||
+           this.clienteSelecionado.tipoFuncionario === '') {
+             this.temErro = true;
+        }
+        if(this.tipoFuncionario === 'Professor') 
+          if(this.clienteSelecionado.turma === '')
+            this.temErro = true;
+        else 
+          this.temErro = false;
       }
     }
   }

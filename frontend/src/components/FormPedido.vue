@@ -83,25 +83,32 @@ export default {
 
       isPedidoPago: false,
 
-      dataConvertida: {
-        dia: null,
-        mes: null,
-        ano: null
-      },
       precoTotalCalculado: 0,
 
       nomeClienteSelecionado: '',
       nomeProdutoSelecionado: '',
 
       listaPedido: [],
+      temErro: false,
     }
   },
 
   mounted() {
     this.getAllInfos();
+    this.getDiaAtual();
   },
 
   methods: {
+    getDiaAtual() {    
+      const data = new Date();
+      const dia = String(data.getDate()).padStart(2, '0');
+      const mes = String(data.getMonth() + 1).padStart(2, '0');
+      const ano = data.getFullYear();
+
+      const dataAtual = ano + '-' + mes + '-' + dia;
+
+      this.dataSelecionada = dataAtual;
+    },
     getAllInfos() {
       this.getAllProdutos();
       this.getAllClientes();
@@ -150,14 +157,14 @@ export default {
       this.listaPedido.splice(index, 1);
     },
     async finalizarPedido() {
-      this.converteData();
       this.calculaPreco();
       this.calculaSaldo();
 
       const pedidoNovo = {
         cliente: this.clienteSelecionado.id,
         produtos: this.listaPedido,
-        data: this.dataConvertida,
+        data: this.dataSelecionada,
+        pago: this.isPedidoPago,
         precoTotal: this.precoTotalCalculado,
       };
 
@@ -175,14 +182,9 @@ export default {
 
       // Limpar os campos
       this.clienteSelecionado = null,
-      this.produtoSelecionado = null,
-      this.dataSelecionada = null,
+      this.produtoSelecionado = null
 
       this.listaPedido = [],
-
-      this.dataConvertida.dia = null;
-      this.dataConvertida.mes = null;
-      this.dataConvertida.ano = null;
 
       this.precoTotalCalculado = 0;
 
@@ -192,13 +194,7 @@ export default {
       this.isPedidoPago = false;
 
       this.getAllInfos();
-    },
-    converteData() {
-      const dataArray = this.dataSelecionada.split('-');
-
-      this.dataConvertida.ano = Number(dataArray[0]);
-      this.dataConvertida.mes = Number(dataArray[1]);
-      this.dataConvertida.dia = Number(dataArray[2]);
+      this.getDiaAtual();
     },
     calculaPreco() {
       this.precoTotalCalculado = 0;

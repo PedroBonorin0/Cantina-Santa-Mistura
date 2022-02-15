@@ -60,6 +60,7 @@ export default {
       },
 
       listaProdutos: [],
+      temErro: false,
     }
   },
 
@@ -80,6 +81,11 @@ export default {
       this.produtoSelecionado.id = produto.id;
     },
     async handleConfirmar() {
+      this.temErro = this.verificaCampos();
+
+      // EXIBIR MENSAGEM
+      if(this.temErro) return;
+      
       const option = {
         nome: this.produtoSelecionado.nome,
         preco: this.produtoSelecionado.preco,
@@ -105,6 +111,11 @@ export default {
       console.log(res);
     },
     async handleExcluir() {
+      this.temErro = this.verificaCampos();
+
+      // EXIBIR MENSAGEM
+      if(this.temErro) return;
+      
       let id = this.getIdProdutoSelecionado();
 
       const req = await fetch(`${this.requisicao}/${id}`,{
@@ -122,6 +133,11 @@ export default {
       console.log(res);
     },
     async handleCriar() {
+      this.temErro = this.verificaCampos();
+
+      // EXIBIR MENSAGEM
+      if(this.temErro) return;
+      
       const produtoNovo = {
         nome: this.produtoSelecionado.nome,
         preco: Number(this.produtoSelecionado.preco).toFixed(2),
@@ -150,6 +166,20 @@ export default {
     },
     getIdProdutoSelecionado() {
       return this.produtoSelecionado.id;
+    },
+    verificaCampos() {
+      if(this.produtoSelecionado.preco === '' ||
+         this.produtoSelecionado.preco === '')
+          this.temErro = true;
+      else 
+        this.temErro = false;
+    },
+    verificaCampos() {
+      if(this.produtoSelecionado.nome === '' ||
+         this.produtoSelecionado.preco === '')
+          this.temErro = true;
+      else 
+        this.temErro = false;
     }
   }
 }
